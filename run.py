@@ -13,7 +13,7 @@ from scipy.special import softmax
 from retriever import BM25
 from copy import copy
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
-from data import StrategyQA, WikiMultiHopQA, HotpotQA, IIRC
+from data import WikiMultiHopQA
 from transformers.models.llama import LlamaForCausalLM, LlamaConfig
 from collections import defaultdict, deque
 
@@ -59,12 +59,8 @@ args.fewshot=hand_args.fewshot
 MAX_N = 5
 MAX_K_DRAFT=7
 
-if args.dataset == "strategyqa":
-    data = StrategyQA(args.data_path)
-elif args.dataset == "2wikimultihopqa":
-    data = WikiMultiHopQA(args.data_path)
-else:
-    raise NotImplementedError
+data = WikiMultiHopQA(args.data_path)
+
     
 data.format(fewshot=args.fewshot)
 data = data.dataset
